@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const Navbar = () => {
+const Navbar = ({ navbarProgress = 1 }) => {
   const [isDark, setIsDark] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -20,15 +20,23 @@ const Navbar = () => {
     }
   };
 
+  // Navbar slides in from above: translateY(-100%) → translateY(0)
+  const navbarStyle = {
+    transform: `translateY(${-100 + navbarProgress * 100}%)`,
+    opacity: navbarProgress,
+    willChange: 'transform, opacity',
+  };
+
   return (
-    <header id="navbar" className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-panel border-b-0">
+    <header
+      id="navbar"
+      className="fixed top-0 left-0 right-0 z-50 transition-none glass-panel border-b-0"
+      style={navbarStyle}
+    >
       <div className="max-w-[1400px] mx-auto px-6 h-20 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="size-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-primary shadow-[0_0_15px_rgba(0,101,189,0.2)]">
-            <span className="material-symbols-outlined text-2xl">code</span>
-          </div>
-          <span className="text-xl font-bold font-display tracking-tight text-white">
-            Jakob<span className="text-primary">.dev</span>
+          <span className="text-xl font-bold font-display tracking-tight text-slate-400 dark:text-white">
+            Jakob Zöbl
           </span>
         </div>
         <nav className="hidden md:flex items-center gap-8">

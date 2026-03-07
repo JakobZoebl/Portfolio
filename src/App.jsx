@@ -9,8 +9,11 @@ import Education from './components/Education';
 import Skills from './components/Skills';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import useScrollAnimation from './hooks/useScrollAnimation';
 
 function App() {
+  const { navbarProgress, heroProgress } = useScrollAnimation();
+
   useEffect(() => {
     // Scroll Reveal with IntersectionObserver
     const observer = new IntersectionObserver((entries) => {
@@ -29,8 +32,8 @@ function App() {
 
   return (
     <div className="relative min-h-screen flex flex-col">
-      <Navbar />
-      <Hero />
+      <Navbar navbarProgress={navbarProgress} />
+      <Hero heroProgress={heroProgress} />
       <TechMarquee />
       <About />
       <Experience />
