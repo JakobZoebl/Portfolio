@@ -104,6 +104,27 @@
 }
 
 @layer utilities {
+  .parallax-group {
+    position: relative;
+  }
+
+  .parallax-sticky {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+
+  .parallax-sticky-bottom {
+    position: sticky;
+    bottom: 0;
+    z-index: 1;
+  }
+
+  .parallax-slide {
+    position: relative;
+    z-index: 2;
+  }
+
   .glass-panel {
     background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(16px);
@@ -204,5 +225,56 @@
   }
   .reveal-delay-4 {
     transition-delay: 0.4s;
+  }
+
+  .background-blue-dot {
+    position: absolute;
+    top: 20px; /* Adjust this value to move it up or down */
+    left: 85%; /* Adjust this value to move it left or right */
+    transform: translateX(-50%);
+    width: 100px;
+    height: 100px;
+    background-color: #0775b8;
+    border-radius: 30%;
+    filter: blur(10px);
+  }
+
+  @media (min-width: 768px) {
+    .background-blue-dot {
+      width: 600px;
+      height: 600px;
+      filter: blur(150px);
+    }
+  }
+
+  .background-angled-line {
+    position: absolute;
+    top: -10%; /* Starts above viewport */
+    left: 20%; /* X offset */
+    width: 200px;
+    height: 150vh; /* Stretches 1.5 viewport heights down */
+    background-color: #000000; /* Black in light mode */
+    border-radius: 100px; /* Soft pill shape */
+    transform: rotate(35deg); /* Angle */
+    filter: blur(90px);
+    opacity: 0.15;
+    transition:
+      background-color 0.3s ease,
+      opacity 0.3s ease;
+    z-index: -1;
+  }
+
+  @media (min-width: 768px) {
+    .background-angled-line {
+      width: 350px;
+      height: 200vh;
+      filter: blur(140px);
+      left: 30%;
+    }
+  }
+
+  .dark .background-angled-line {
+    background-color: #ffffff; /* White in dark mode */
+    opacity: 0.08; /* Slightly less opaque for white glow */
   }
 }

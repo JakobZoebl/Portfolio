@@ -31,14 +31,29 @@ function App() {
   }, []);
 
   return (
-    <div className="relative min-h-screen flex flex-col">
+    <div className="relative min-h-screen flex flex-col z-0">
+      {/* Global Background Layer */}
+      <div className="absolute inset-0 pointer-events-none z-[-1] overflow-hidden">
+        {/* Angled background shape stretching down */}
+        <div className="background-angled-line"></div>
+        
+        {/* Blue dot at the top right, slightly lower */}
+        <div className="background-blue-dot"></div>
+      </div>
+      
       <Navbar navbarProgress={navbarProgress} />
       <Hero heroProgress={heroProgress} />
       <TechMarquee />
-      <About />
-      <Experience />
-      <Projects />
-      <Education />
+      {/* Parallax group 1: About sticks, Experience slides over */}
+      <div className="parallax-group">
+        <About />
+        <Experience />
+      </div>
+      {/* Parallax group 2: Projects sticks, Education slides over */}
+      <div className="parallax-group">
+        <Projects />
+        <Education />
+      </div>
       <Skills />
       <Contact />
       <Footer />

@@ -17,9 +17,9 @@ export default function useScrollAnimation() {
     const navbarEnd = vh * 0.4;
     const navbarProgress = Math.min(1, Math.max(0, scrollY / navbarEnd));
 
-    // Phase 2: Hero text centers/shrinks from 40vh to 200vh of scrolling
+    // Phase 2: Hero text centers/shrinks from 40vh to 150vh of scrolling (75% of original)
     const heroStart = navbarEnd;
-    const heroEnd = vh * 2;
+    const heroEnd = vh * 1.5;
     const heroProgress = Math.min(
       1,
       Math.max(0, (scrollY - heroStart) / (heroEnd - heroStart))

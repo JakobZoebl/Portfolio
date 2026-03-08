@@ -101,7 +101,7 @@ const Hero = ({ heroProgress = 0 }) => {
   };
 
   return (
-    <div className="hero-scroll-container relative" style={{ height: '300vh' }}>
+    <div className="hero-scroll-container relative" style={{ height: '250vh' }}>
       <section className="hero-sticky sticky top-0 h-screen flex items-center overflow-hidden">
 
         <div className="max-w-[1400px] mx-auto px-6 w-full relative z-20 flex flex-col items-start justify-center font-display pointer-events-none min-h-[80vh]">

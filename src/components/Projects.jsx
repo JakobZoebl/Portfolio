@@ -21,9 +21,18 @@ const ProjectCard = ({ year, title, description, icon, iconColorClass, tags, del
   </div>
 );
 
+import useStickyBottom from '../hooks/useStickyBottom';
+
 const Projects = () => {
+  const { ref, topOffset } = useStickyBottom();
+
   return (
-    <section id="projects" className="py-24 px-6 bg-white dark:bg-black transition-colors">
+    <section 
+      ref={ref}
+      id="projects" 
+      className="parallax-sticky py-24 px-6 bg-white dark:bg-black transition-colors"
+      style={{ top: `${topOffset}px` }}
+    >
       <div className="max-w-[1200px] mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-4 reveal">
           <div>

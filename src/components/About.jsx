@@ -1,4 +1,5 @@
 import React from 'react';
+import useStickyBottom from '../hooks/useStickyBottom';
 
 const StatCard = ({ value, label }) => (
   <div className="glass-panel rounded-2xl p-6 text-center hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
@@ -7,16 +8,23 @@ const StatCard = ({ value, label }) => (
   </div>
 );
 
-const Pill = ({ icon, text, location }) => (
+const Pill = ({ icon, text }) => (
   <span className="px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium">
     {icon} {text}
   </span>
 );
 
 const About = () => {
+  const { ref, topOffset } = useStickyBottom();
+
   return (
-    <section id="about" className="py-24 px-6 bg-white dark:bg-black transition-colors">
-      <div className="max-w-[1200px] mx-auto grid lg:grid-cols-2 gap-16 items-center">
+    <section 
+      ref={ref}
+      id="about" 
+      className="parallax-sticky py-24 px-6 bg-transparent transition-colors min-h-[100lvh] flex flex-col justify-center"
+      style={{ top: `${topOffset}px` }}
+    >
+      <div className="max-w-[1200px] w-full mx-auto grid lg:grid-cols-2 gap-16 items-center">
         <div className="reveal">
           <h2 className="text-3xl md:text-4xl font-bold mb-6 font-display text-slate-900 dark:text-white">About Me</h2>
           <div className="w-20 h-1 bg-primary rounded-full mb-8"></div>

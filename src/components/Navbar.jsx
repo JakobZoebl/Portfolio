@@ -30,10 +30,10 @@ const Navbar = ({ navbarProgress = 1 }) => {
   return (
     <header
       id="navbar"
-      className="fixed top-0 left-0 right-0 z-50 transition-none glass-panel border-b-0"
+      className="fixed top-4 left-4 right-4 md:top-5 md:left-6 md:right-6 z-50 transition-none glass-panel rounded-2xl"
       style={navbarStyle}
     >
-      <div className="max-w-[1400px] mx-auto px-6 h-20 flex items-center justify-between">
+      <div className="max-w-[1400px] mx-auto px-6 h-14 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <span className="text-xl font-bold font-display tracking-tight text-slate-400 dark:text-white">
             Jakob Zöbl
