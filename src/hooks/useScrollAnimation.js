@@ -13,19 +13,25 @@ export default function useScrollAnimation() {
     const scrollY = window.scrollY;
     const vh = window.innerHeight;
 
-    // Phase 1: Navbar flies in over the first 40vh of scrolling
-    const navbarEnd = vh * 0.4;
-    const navbarProgress = Math.min(1, Math.max(0, scrollY / navbarEnd));
+    // Navbar flies in and Hero text centers simultaneously over 150vh of scrolling
+    const phase1End = vh * 1.5;
+    // Hero text moves to top, marquees slide in over the next 150vh
+    const phase2End = vh * 3.0;
+    // Marquees slide out over the next 150vh
+    const phase3End = vh * 4.5;
+    
+    const animationEnd = phase3End;
 
-    // Phase 2: Hero text centers/shrinks from 40vh to 150vh of scrolling (75% of original)
-    const heroStart = navbarEnd;
-    const heroEnd = vh * 1.5;
-    const heroProgress = Math.min(
-      1,
-      Math.max(0, (scrollY - heroStart) / (heroEnd - heroStart))
-    );
+    const navbarProgress = Math.min(1, Math.max(0, scrollY / phase1End));
+    const heroProgress = Math.min(1, Math.max(0, scrollY / phase1End));
+    
+    // Progress from 0 to 1 during the second 150vh
+    const phase2Progress = Math.min(1, Math.max(0, (scrollY - phase1End) / (phase2End - phase1End)));
+    
+    // Progress from 0 to 1 during the third 150vh
+    const phase3Progress = Math.min(1, Math.max(0, (scrollY - phase2End) / (phase3End - phase2End)));
 
-    return { navbarProgress, heroProgress, scrollY };
+    return { navbarProgress, heroProgress, phase2Progress, phase3Progress, scrollY, animationEnd };
   }, []);
 
   const [state, setState] = useState(() => compute());

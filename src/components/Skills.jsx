@@ -16,7 +16,7 @@ const LanguageCard = ({ delayClass, flag, name, level }) => (
 
 const Skills = () => {
   return (
-    <section className="py-24 px-6 bg-white dark:bg-black transition-colors">
+    <section className="py-24 px-6 bg-transparent transition-colors">
       <div className="max-w-[1200px] mx-auto">
         <div className="text-center mb-16 reveal">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 font-display text-slate-900 dark:text-white">Skills & Languages</h2>

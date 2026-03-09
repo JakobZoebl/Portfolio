@@ -30,30 +30,23 @@ const About = () => {
           <div className="w-20 h-1 bg-primary rounded-full mb-8"></div>
           
           <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
-            I'm a Computer Science student at the <strong className="text-slate-900 dark:text-white">Technical University of Munich (TUM)</strong>, currently on an ERASMUS+ exchange at <strong className="text-slate-900 dark:text-white">TU Delft</strong> in the Netherlands.
+            I'm a Computer Science student at the <strong className="text-slate-900 dark:text-white">Technical University of Munich (TUM)</strong>, and recently did an ERASMUS+ exchange at <strong className="text-slate-900 dark:text-white">TU Delft</strong> in the Netherlands.
           </p>
           <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
-            With hands-on experience as a Software Engineer at <strong className="text-slate-900 dark:text-white">Hensoldt AG</strong> working on drone defense systems in C++ and Python, I combine academic rigor with real-world engineering.
+            With hands-on experience as a Software Engineer at <strong className="text-slate-900 dark:text-white">Hensoldt AG</strong> working on drone defense systems in C++ and Python, I combine academic knowledge with real-world engineering experience.
           </p>
           <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
-            My interests span <strong className="text-slate-900 dark:text-white">AI & Machine Learning</strong>, <strong className="text-slate-900 dark:text-white">Natural Language Processing</strong>, <strong className="text-slate-900 dark:text-white">Computer Vision</strong>, and building scalable software systems. I'm also a multiple hackathon winner.
+            My interests span <strong className="text-slate-900 dark:text-white">AI & Machine Learning</strong>, <strong className="text-slate-900 dark:text-white">Natural Language Processing</strong>, and building scalable software systems.
           </p>
-          
-          <div className="flex flex-wrap gap-3">
-            <Pill icon="🇦🇹" text="Austrian" />
-            <Pill icon="🇩🇪" text="Munich / 🇳🇱 Delft" />
-            <Pill icon="🏋️" text="Weightlifting" />
-            <Pill icon="🏃" text="Running" />
-            <Pill icon="✈️" text="Traveling" />
-          </div>
+        
         </div>
         
         <div className="reveal reveal-delay-2">
           <div className="grid grid-cols-2 gap-4">
             <StatCard value="2.1" label="GPA at TUM" />
             <StatCard value="1.14" label="A-Levels GPA" />
-            <StatCard value="C2" label="English (Cambridge)" />
-            <StatCard value="9+" label="Tech Stack" />
+            <StatCard value="C2" label="English (CAE)" />
+            <StatCard value="6+ years" label="Programming Experience" />
           </div>
         </div>
       </div>

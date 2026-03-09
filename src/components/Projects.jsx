@@ -30,7 +30,7 @@ const Projects = () => {
     <section 
       ref={ref}
       id="projects" 
-      className="parallax-sticky py-24 px-6 bg-white dark:bg-black transition-colors"
+      className="parallax-sticky py-24 px-6 bg-transparent transition-colors"
       style={{ top: `${topOffset}px` }}
     >
       <div className="max-w-[1200px] mx-auto">
