@@ -1,37 +1,38 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { motion, useAnimation } from 'framer-motion';
 import useStickyBottom from '../hooks/useStickyBottom';
 
 /* ------------------------------------------------------------------ */
 /*  Each card gets a side ('left' | 'right') and a stagger delay (s). */
-/*  Cards slide in horizontally from far off-screen once the bento    */
-/*  grid container scrolls into view, AFTER the F1 featured card.     */
+/*  Cards slide in horizontally from far off-screen based on the      */
+/*  scroll position of the bento grid container.                      */
 /* ------------------------------------------------------------------ */
 
 const OFFSCREEN_PX = 1800; // large enough to be fully off-screen
 
-const ProjectCard = ({ year, title, description, icon, iconColorClass, tags, borderHoverClass, textHoverClass, url, isDownload, downloadName, className, previewNode, side, delay, triggerAnim }) => {
-  const controls = useAnimation();
-  const hasAnimated = useRef(false);
+const ProjectCard = ({ year, title, description, icon, iconColorClass, tags, borderHoverClass, textHoverClass, url, isDownload, downloadName, className, previewNode, side, scrollProgress, staggerOffset }) => {
+  // Compute individual card progress based on global grid scrollProgress and stagger offset
+  // Card starts moving when scrollProgress > staggerOffset, and finishes exactly at 1.0.
+  const cardProgressRange = 1 - staggerOffset;
+  const rawCardProgress = (scrollProgress - staggerOffset) / cardProgressRange;
+  const cardProgress = Math.min(1, Math.max(0, rawCardProgress));
 
-  useEffect(() => {
-    if (triggerAnim && !hasAnimated.current) {
-      hasAnimated.current = true;
-      controls.start({
-        x: 0,
-        opacity: 1,
-        transition: {
-          type: 'spring',
-          stiffness: 70,
-          damping: 22,
-          mass: 1,
-          delay,
-        }
-      });
-    }
-  }, [triggerAnim, controls, delay]);
+  // Ease Out Cubic for smooth deceleration
+  const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+  const easedCardProgress = easeOutCubic(cardProgress);
 
-  const CardWrapper = url ? motion.a : motion.div;
+  const directionSign = side === 'left' ? -1 : 1;
+  const currentX = OFFSCREEN_PX * (1 - easedCardProgress) * directionSign;
+
+  // Fade in over the first 30% of the movement
+  const opacityProgress = Math.min(1, cardProgress * 3.33);
+
+  const style = {
+    transform: `translateX(${currentX}px)`,
+    opacity: Math.max(0, opacityProgress),
+    willChange: 'transform, opacity'
+  };
+
+  const CardWrapper = url ? 'a' : 'div';
   const wrapperProps = url ? { 
     href: url, 
     target: "_blank", 
@@ -39,52 +40,49 @@ const ProjectCard = ({ year, title, description, icon, iconColorClass, tags, bor
     ...(isDownload ? { download: downloadName || true } : {})
   } : {};
 
-  const initialX = side === 'left' ? -OFFSCREEN_PX : OFFSCREEN_PX;
-
   return (
     <CardWrapper 
       {...wrapperProps}
-      initial={{ x: initialX, opacity: 0 }}
-      animate={controls}
-      className={`group relative flex flex-col bg-slate-50 dark:bg-[#111111] rounded-xl border border-slate-200 dark:border-slate-800 p-6 hover:shadow-lg ${borderHoverClass} hover:-translate-y-1 transition-all duration-300 ${url ? 'cursor-pointer' : ''} ${className || ''} will-change-transform`}
+      style={style}
+      className={`group relative flex flex-col bg-slate-50 dark:bg-[#111111] rounded-xl border border-slate-200 dark:border-slate-800 p-6 hover:shadow-lg ${borderHoverClass} hover:-translate-y-1 transition-all duration-300 ${url ? 'cursor-pointer' : ''} ${className || ''}`}
     >
-      <div className={`${previewNode && previewNode.props && previewNode.props.className && previewNode.props.className.includes('absolute') ? 'lg:w-1/2 pr-6' : 'w-full'}`}>
-      <div className="flex justify-between items-start mb-4">
-        <div className={`size-10 rounded-lg shrink-0 ${iconColorClass} flex items-center justify-center`}>
-          <span className="material-symbols-outlined">{icon}</span>
-        </div>
-        <span className="text-xs font-mono text-slate-500 whitespace-nowrap ml-2">{year}</span>
-      </div>
-      
-      {previewNode && (
-        previewNode.props && previewNode.props.className && previewNode.props.className.includes('absolute') ? (
-          previewNode
-        ) : (
-          <div className="mb-6 w-full grow flex items-center justify-center overflow-hidden rounded-lg border border-slate-200 dark:border-slate-800/50 bg-white dark:bg-black/20">
-            {previewNode}
+      <div className={`${previewNode && previewNode.props && previewNode.props.className && previewNode.props.className.includes('absolute') ? 'lg:w-1/2 pr-6' : 'w-full'} flex flex-col grow`}>
+        <div className="flex justify-between items-start mb-4">
+          <div className={`size-10 rounded-lg shrink-0 ${iconColorClass} flex items-center justify-center`}>
+            <span className="material-symbols-outlined">{icon}</span>
           </div>
-        )
-      )}
-      
-      <h3 className={`text-lg font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-1.5 ${textHoverClass} transition-colors font-display`}>
-        {title}
-        {url && (
-          <span className="text-sm opacity-50 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0">
-            {isDownload ? '↓' : '↗'}
-          </span>
+          <span className="text-xs font-mono text-slate-500 whitespace-nowrap ml-2">{year}</span>
+        </div>
+        
+        {previewNode && (
+          previewNode.props && previewNode.props.className && previewNode.props.className.includes('absolute') ? (
+            previewNode
+          ) : (
+            <div className="mb-6 w-full grow flex items-center justify-center overflow-hidden rounded-lg border border-slate-200 dark:border-slate-800/50 bg-white dark:bg-black/20">
+              {previewNode}
+            </div>
+          )
         )}
-      </h3>
-      
-      <p className={`text-sm text-slate-600 dark:text-slate-400 mb-4 ${previewNode ? '' : 'grow'}`}>{description}</p>
-      
-      <div className={`flex gap-2 pt-2 border-t border-slate-200 dark:border-slate-800/50 flex-wrap ${previewNode ? 'mt-auto' : ''}`}>
-        {tags.map((tag, i) => (
-          <React.Fragment key={i}>
-            <span className="text-xs text-slate-500 font-medium">{tag}</span>
-            {i < tags.length - 1 && <span className="text-xs text-slate-500">•</span>}
-          </React.Fragment>
-        ))}
-      </div>
+        
+        <h3 className={`text-lg font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-1.5 ${textHoverClass} transition-colors font-display`}>
+          {title}
+          {url && (
+            <span className="text-sm opacity-50 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0">
+              {isDownload ? '↓' : '↗'}
+            </span>
+          )}
+        </h3>
+        
+        <p className={`text-sm text-slate-600 dark:text-slate-400 mb-4 ${previewNode && previewNode.type !== 'div' ? '' : 'grow'}`}>{description}</p>
+        
+        <div className={`flex gap-2 pt-2 border-t border-slate-200 dark:border-slate-800/50 flex-wrap ${previewNode && previewNode.type !== 'div' ? 'mt-auto' : ''}`}>
+          {tags.map((tag, i) => (
+            <React.Fragment key={i}>
+              <span className="text-xs text-slate-500 font-medium">{tag}</span>
+              {i < tags.length - 1 && <span className="text-xs text-slate-500">•</span>}
+            </React.Fragment>
+          ))}
+        </div>
       </div>
     </CardWrapper>
   );
@@ -93,18 +91,48 @@ const ProjectCard = ({ year, title, description, icon, iconColorClass, tags, bor
 const Projects = () => {
   const { ref, topOffset } = useStickyBottom();
   const gridRef = useRef(null);
-  const [gridVisible, setGridVisible] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
-  // Observe when the bento grid container scrolls into view
+  // Compute scroll progress continuously
   useEffect(() => {
-    const el = gridRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setGridVisible(true); },
-      { threshold: 0.15 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
+    let rafId = null;
+
+    const computeProgress = () => {
+      if (!gridRef.current) return;
+      const rect = gridRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      // The animation starts exactly when the TOP of the grid enters the BOTTOM of the viewport
+      // It ends when the TOP of the grid reaches 30% from the TOP of the viewport
+      // This means the grid finishes assembling while it is primarily covering the middle of the screen
+      const startScrollY = windowHeight; 
+      const endScrollY = windowHeight * 0.3; // completely assembled when grid is 30% down the screen
+
+      const rawProgress = (startScrollY - rect.top) / (startScrollY - endScrollY);
+      const progress = Math.min(1, Math.max(0, rawProgress));
+      
+      setScrollProgress(progress);
+    };
+
+    const onScroll = () => {
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        computeProgress();
+        rafId = null;
+      });
+    };
+
+    // Initial compute
+    computeProgress();
+    
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', computeProgress);
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', computeProgress);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
   }, []);
 
   return (
@@ -175,7 +203,7 @@ const Projects = () => {
           {/* Left Column — all 3 from left */}
           <ProjectCard 
             className="lg:col-span-1 lg:row-span-2 lg:col-start-1 lg:row-start-1"
-            side="left" delay={0.0} triggerAnim={gridVisible}
+            side="left" scrollProgress={scrollProgress} staggerOffset={0.0}
             year="2025" title="Home Price Predictor" 
             description="Interhyp Challenge at HackaTUM 2025. Built a home price prediction and recommendation system."
             icon="home" iconColorClass="bg-blue-500/10 text-blue-500"
@@ -184,7 +212,7 @@ const Projects = () => {
           />
           <ProjectCard 
             className="lg:col-span-1 lg:row-span-2 lg:col-start-1 lg:row-start-3"
-            side="left" delay={0.08} triggerAnim={gridVisible}
+            side="left" scrollProgress={scrollProgress} staggerOffset={0.10}
             year="2025" title="Demining Software" 
             description="TUM Venture Labs Challenge at TUM Science-Hackathon 2025. Software for managing humanitarian demining."
             icon="bomb" iconColorClass="bg-purple-500/10 text-purple-500"
@@ -194,7 +222,7 @@ const Projects = () => {
           />
           <ProjectCard 
             className="lg:col-span-1 lg:row-span-2 lg:col-start-1 lg:row-start-5"
-            side="left" delay={0.16} triggerAnim={gridVisible}
+            side="left" scrollProgress={scrollProgress} staggerOffset={0.18}
             year="2024" title="Hedge-Trading Bot" 
             description="Optiver Challenge at HackaTUM 2024. Automated hedge trading strategies with real-time market data."
             icon="swap_horiz" iconColorClass="bg-green-500/10 text-green-500"
@@ -205,9 +233,9 @@ const Projects = () => {
           {/* Steam Data Viz — also from left */}
           <ProjectCard 
             className="lg:col-span-3 lg:row-span-2 lg:col-start-2 lg:row-start-1"
-            side="left" delay={0.12} triggerAnim={gridVisible}
+            side="left" scrollProgress={scrollProgress} staggerOffset={0.12}
             previewNode={
-              <div className="absolute right-0 top-0 bottom-0 w-1/2 overflow-hidden border-l border-slate-200 dark:border-slate-800 hidden lg:block group/iframe">
+              <div className="absolute right-0 top-0 bottom-0 w-1/2 overflow-hidden border-l border-slate-200 dark:border-slate-800 hidden lg:block group/iframe rounded-r-xl">
                 <iframe 
                   src="https://data-visualization-one-orcin.vercel.app/" 
                   className="absolute top-0 left-0 w-[calc(200%+40px)] h-[calc(200%+40px)] scale-50 origin-top-left border-0 pointer-events-none group-hover/iframe:pointer-events-auto transition-opacity" 
@@ -229,7 +257,7 @@ const Projects = () => {
           {/* NLP Paper — from right */}
           <ProjectCard 
             className="lg:col-span-2 lg:row-span-4 lg:col-start-2 lg:row-start-3"
-            side="right" delay={0.20} triggerAnim={gridVisible}
+            side="right" scrollProgress={scrollProgress} staggerOffset={0.22}
             previewNode={
               <div className="w-full h-full min-h-[280px] relative overflow-hidden bg-white dark:bg-slate-900 rounded-t-lg">
                 <iframe 
@@ -252,7 +280,7 @@ const Projects = () => {
           {/* Right Column — both from right */}
           <ProjectCard 
             className="lg:col-span-1 lg:row-span-2 lg:col-start-4 lg:row-start-3"
-            side="right" delay={0.06} triggerAnim={gridVisible}
+            side="right" scrollProgress={scrollProgress} staggerOffset={0.05}
             year="2023" title="Surveying Homepage" 
             description="HTML/CSS and JS Homepage for a local surveying company. Full web development and deployment."
             icon="web" iconColorClass="bg-orange-500/10 text-orange-500"
@@ -262,7 +290,7 @@ const Projects = () => {
           />
           <ProjectCard 
             className="lg:col-span-1 lg:row-span-2 lg:col-start-4 lg:row-start-5"
-            side="right" delay={0.14} triggerAnim={gridVisible}
+            side="right" scrollProgress={scrollProgress} staggerOffset={0.15}
             year="2022" title="N.E.A.T. Application" 
             description="Neural Network development using Genetic Algorithms (N.E.A.T.) for FlappyBird as part of my Pre-Scientific Paper — Grade: 1.0."
             icon="neurology" iconColorClass="bg-red-500/10 text-red-500"
