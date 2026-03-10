@@ -1,7 +1,37 @@
-import React from 'react';
+import React, { useRef, useEffect, useState } from 'react';
+import { motion, useAnimation } from 'framer-motion';
+import useStickyBottom from '../hooks/useStickyBottom';
 
-const ProjectCard = ({ year, title, description, icon, iconColorClass, tags, delayClass, borderHoverClass, textHoverClass, url, isDownload, downloadName }) => {
-  const CardWrapper = url ? 'a' : 'div';
+/* ------------------------------------------------------------------ */
+/*  Each card gets a side ('left' | 'right') and a stagger delay (s). */
+/*  Cards slide in horizontally from far off-screen once the bento    */
+/*  grid container scrolls into view, AFTER the F1 featured card.     */
+/* ------------------------------------------------------------------ */
+
+const OFFSCREEN_PX = 1800; // large enough to be fully off-screen
+
+const ProjectCard = ({ year, title, description, icon, iconColorClass, tags, borderHoverClass, textHoverClass, url, isDownload, downloadName, className, previewNode, side, delay, triggerAnim }) => {
+  const controls = useAnimation();
+  const hasAnimated = useRef(false);
+
+  useEffect(() => {
+    if (triggerAnim && !hasAnimated.current) {
+      hasAnimated.current = true;
+      controls.start({
+        x: 0,
+        opacity: 1,
+        transition: {
+          type: 'spring',
+          stiffness: 70,
+          damping: 22,
+          mass: 1,
+          delay,
+        }
+      });
+    }
+  }, [triggerAnim, controls, delay]);
+
+  const CardWrapper = url ? motion.a : motion.div;
   const wrapperProps = url ? { 
     href: url, 
     target: "_blank", 
@@ -9,29 +39,45 @@ const ProjectCard = ({ year, title, description, icon, iconColorClass, tags, del
     ...(isDownload ? { download: downloadName || true } : {})
   } : {};
 
+  const initialX = side === 'left' ? -OFFSCREEN_PX : OFFSCREEN_PX;
+
   return (
     <CardWrapper 
       {...wrapperProps}
-      className={`reveal ${delayClass} group flex flex-col bg-slate-50 dark:bg-[#111111] rounded-xl border border-slate-200 dark:border-slate-800 p-6 hover:shadow-lg ${borderHoverClass} hover:-translate-y-1 transition-all duration-300 ${url ? 'cursor-pointer' : ''}`}
+      initial={{ x: initialX, opacity: 0 }}
+      animate={controls}
+      className={`group relative flex flex-col bg-slate-50 dark:bg-[#111111] rounded-xl border border-slate-200 dark:border-slate-800 p-6 hover:shadow-lg ${borderHoverClass} hover:-translate-y-1 transition-all duration-300 ${url ? 'cursor-pointer' : ''} ${className || ''} will-change-transform`}
     >
+      <div className={`${previewNode && previewNode.props && previewNode.props.className && previewNode.props.className.includes('absolute') ? 'lg:w-1/2 pr-6' : 'w-full'}`}>
       <div className="flex justify-between items-start mb-4">
-        <div className={`size-10 rounded-lg ${iconColorClass} flex items-center justify-center`}>
+        <div className={`size-10 rounded-lg shrink-0 ${iconColorClass} flex items-center justify-center`}>
           <span className="material-symbols-outlined">{icon}</span>
         </div>
-        <span className="text-xs font-mono text-slate-500">{year}</span>
+        <span className="text-xs font-mono text-slate-500 whitespace-nowrap ml-2">{year}</span>
       </div>
+      
+      {previewNode && (
+        previewNode.props && previewNode.props.className && previewNode.props.className.includes('absolute') ? (
+          previewNode
+        ) : (
+          <div className="mb-6 w-full grow flex items-center justify-center overflow-hidden rounded-lg border border-slate-200 dark:border-slate-800/50 bg-white dark:bg-black/20">
+            {previewNode}
+          </div>
+        )
+      )}
       
       <h3 className={`text-lg font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-1.5 ${textHoverClass} transition-colors font-display`}>
         {title}
         {url && (
-          <span className="text-sm opacity-50 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+          <span className="text-sm opacity-50 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0">
             {isDownload ? '↓' : '↗'}
           </span>
         )}
       </h3>
       
-      <p className="text-sm text-slate-600 dark:text-slate-400 mb-4 flex-grow">{description}</p>
-      <div className="flex gap-2 pt-2 border-t border-slate-200 dark:border-slate-800/50 flex-wrap">
+      <p className={`text-sm text-slate-600 dark:text-slate-400 mb-4 ${previewNode ? '' : 'grow'}`}>{description}</p>
+      
+      <div className={`flex gap-2 pt-2 border-t border-slate-200 dark:border-slate-800/50 flex-wrap ${previewNode ? 'mt-auto' : ''}`}>
         {tags.map((tag, i) => (
           <React.Fragment key={i}>
             <span className="text-xs text-slate-500 font-medium">{tag}</span>
@@ -39,14 +85,27 @@ const ProjectCard = ({ year, title, description, icon, iconColorClass, tags, del
           </React.Fragment>
         ))}
       </div>
+      </div>
     </CardWrapper>
   );
 };
 
-import useStickyBottom from '../hooks/useStickyBottom';
-
 const Projects = () => {
   const { ref, topOffset } = useStickyBottom();
+  const gridRef = useRef(null);
+  const [gridVisible, setGridVisible] = useState(false);
+
+  // Observe when the bento grid container scrolls into view
+  useEffect(() => {
+    const el = gridRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setGridVisible(true); },
+      { threshold: 0.15 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section 
@@ -108,60 +167,106 @@ const Projects = () => {
           </div>
         </a>
 
-        {/* Project Cards Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Project Bento Grid — overflow hidden so off-screen cards don't cause scrollbars */}
+        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:grid-rows-6 gap-6 overflow-hidden">
+          
+          {/* ========== FROM LEFT ========== */}
+
+          {/* Left Column — all 3 from left */}
           <ProjectCard 
+            className="lg:col-span-1 lg:row-span-2 lg:col-start-1 lg:row-start-1"
+            side="left" delay={0.0} triggerAnim={gridVisible}
             year="2025" title="Home Price Predictor" 
             description="Interhyp Challenge at HackaTUM 2025. Built a home price prediction and recommendation system."
             icon="home" iconColorClass="bg-blue-500/10 text-blue-500"
-            delayClass="reveal-delay-1" textHoverClass="group-hover:text-primary" borderHoverClass="hover:border-primary/30"
+            borderHoverClass="hover:border-primary/30" textHoverClass="group-hover:text-primary"
             tags={["Python", "Regression", "HackaTUM"]}
           />
           <ProjectCard 
-            year="2025/2026" title="Steam Data Visualization" 
-            description="Interactive D3.js dashboard visualizing Steam's catalog data, based on a high-dimensional pre-processed dataset."
-            icon="analytics" iconColorClass="bg-cyan-500/10 text-cyan-500"
-            delayClass="reveal-delay-2" textHoverClass="group-hover:text-accent" borderHoverClass="hover:border-accent/30"
-            tags={["D3", "JavaScript", "Visualization"]}
-            url="https://data-visualization-one-orcin.vercel.app/"
-          />
-          <ProjectCard 
-            year="2025" title="Demining Management Software" 
-            description="TUM Venture Labs Challenge at TUM Science-Hackathon 2025 (TUM Venture Labs Challenge). Software for managing humanitarian demining operations."
+            className="lg:col-span-1 lg:row-span-2 lg:col-start-1 lg:row-start-3"
+            side="left" delay={0.08} triggerAnim={gridVisible}
+            year="2025" title="Demining Software" 
+            description="TUM Venture Labs Challenge at TUM Science-Hackathon 2025. Software for managing humanitarian demining."
             icon="bomb" iconColorClass="bg-purple-500/10 text-purple-500"
-            delayClass="reveal-delay-3" textHoverClass="group-hover:text-purple-400" borderHoverClass="hover:border-purple-400/30"
+            borderHoverClass="hover:border-purple-400/30" textHoverClass="group-hover:text-purple-400"
             tags={["Full Stack", "Hackathon"]}
             url="https://demining-two.vercel.app"
           />
           <ProjectCard 
-            year="2024" title="Automatic Hedge-Trading Bot" 
+            className="lg:col-span-1 lg:row-span-2 lg:col-start-1 lg:row-start-5"
+            side="left" delay={0.16} triggerAnim={gridVisible}
+            year="2024" title="Hedge-Trading Bot" 
             description="Optiver Challenge at HackaTUM 2024. Automated hedge trading strategies with real-time market data."
             icon="swap_horiz" iconColorClass="bg-green-500/10 text-green-500"
-            delayClass="reveal-delay-1" textHoverClass="group-hover:text-green-400" borderHoverClass="hover:border-green-400/30"
+            borderHoverClass="hover:border-green-400/30" textHoverClass="group-hover:text-green-400"
             tags={["Python", "Finance", "Optiver"]}
           />
+
+          {/* Steam Data Viz — also from left */}
           <ProjectCard 
-            year="2023" title="Surveying Company Homepage" 
-            description="HTML/CSS and JS Homepage for a local surveying company. Full web development and deployment."
-            icon="web" iconColorClass="bg-orange-500/10 text-orange-500"
-            delayClass="reveal-delay-2" textHoverClass="group-hover:text-orange-400" borderHoverClass="hover:border-orange-400/30"
-            tags={["HTML", "CSS", "JavaScript"]}
-            url="https://www.geounit.at/"
+            className="lg:col-span-3 lg:row-span-2 lg:col-start-2 lg:row-start-1"
+            side="left" delay={0.12} triggerAnim={gridVisible}
+            previewNode={
+              <div className="absolute right-0 top-0 bottom-0 w-1/2 overflow-hidden border-l border-slate-200 dark:border-slate-800 hidden lg:block group/iframe">
+                <iframe 
+                  src="https://data-visualization-one-orcin.vercel.app/" 
+                  className="absolute top-0 left-0 w-[calc(200%+40px)] h-[calc(200%+40px)] scale-50 origin-top-left border-0 pointer-events-none group-hover/iframe:pointer-events-auto transition-opacity" 
+                  title="Steam Data Preview" 
+                  loading="lazy"
+                ></iframe>
+              </div>
+            }
+            year="2025/2026" title="Steam Data Visualization" 
+            description="Interactive D3.js dashboard visualizing Steam's catalog data."
+            icon="analytics" iconColorClass="bg-cyan-500/10 text-cyan-500"
+            borderHoverClass="hover:border-accent/30" textHoverClass="group-hover:text-accent"
+            tags={["D3", "JavaScript", "Visualization"]}
+            url="https://data-visualization-one-orcin.vercel.app/"
           />
+
+          {/* ========== FROM RIGHT ========== */}
+
+          {/* NLP Paper — from right */}
           <ProjectCard 
+            className="lg:col-span-2 lg:row-span-4 lg:col-start-2 lg:row-start-3"
+            side="right" delay={0.20} triggerAnim={gridVisible}
+            previewNode={
+              <div className="w-full h-full min-h-[280px] relative overflow-hidden bg-white dark:bg-slate-900 rounded-t-lg">
+                <iframe 
+                  src="/Benchmarking_and_Generating_GP_Consultation_Summaries.pdf#toolbar=0&navpanes=0&scrollbar=0" 
+                  title="NLP Paper Preview"
+                  scrolling="no"
+                  className="absolute top-0 left-0 w-[calc(100%+24px)] h-[calc(100%+50px)] -mt-[50px] border-0 pointer-events-none opacity-90 transition-all duration-300 group-hover:opacity-100 group-hover:pointer-events-auto"
+                />
+              </div>
+            }
             year="2025/2026" title="LLM GP Consultation Summaries" 
             description="Automatic LLM-based GP consultation summary and benchmarking system. Developed at TU Delft focusing on NLP metrics and medical data processing."
             icon="psychology" iconColorClass="bg-indigo-500/10 text-indigo-500"
-            delayClass="reveal-delay-1" textHoverClass="group-hover:text-indigo-400" borderHoverClass="hover:border-indigo-400/30"
+            borderHoverClass="hover:border-indigo-400/30" textHoverClass="group-hover:text-indigo-400"
             tags={["NLP", "LLM", "Python", "Benchmarking"]}
             url="/Benchmarking_and_Generating_GP_Consultation_Summaries.pdf"
             isDownload={true}
           />
+
+          {/* Right Column — both from right */}
           <ProjectCard 
+            className="lg:col-span-1 lg:row-span-2 lg:col-start-4 lg:row-start-3"
+            side="right" delay={0.06} triggerAnim={gridVisible}
+            year="2023" title="Surveying Homepage" 
+            description="HTML/CSS and JS Homepage for a local surveying company. Full web development and deployment."
+            icon="web" iconColorClass="bg-orange-500/10 text-orange-500"
+            borderHoverClass="hover:border-orange-400/30" textHoverClass="group-hover:text-orange-400"
+            tags={["HTML", "CSS", "JavaScript"]}
+            url="https://www.geounit.at/"
+          />
+          <ProjectCard 
+            className="lg:col-span-1 lg:row-span-2 lg:col-start-4 lg:row-start-5"
+            side="right" delay={0.14} triggerAnim={gridVisible}
             year="2022" title="N.E.A.T. Application" 
             description="Neural Network development using Genetic Algorithms (N.E.A.T.) for FlappyBird as part of my Pre-Scientific Paper — Grade: 1.0."
             icon="neurology" iconColorClass="bg-red-500/10 text-red-500"
-            delayClass="reveal-delay-2" textHoverClass="group-hover:text-red-400" borderHoverClass="hover:border-red-400/30"
+            borderHoverClass="hover:border-red-400/30" textHoverClass="group-hover:text-red-400"
             tags={["Neural Networks", "Genetic Algorithms"]}
             url="/Pre-Scientific-Paper.pdf"
             isDownload={true}

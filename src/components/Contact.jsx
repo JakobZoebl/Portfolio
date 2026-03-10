@@ -9,7 +9,7 @@ const Contact = () => {
       <div className="max-w-[800px] mx-auto text-center relative z-10 reveal">
         <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight font-display text-slate-900 dark:text-white">Let's Build Something Together</h2>
         <p className="text-lg text-slate-600 dark:text-slate-400 mb-10 max-w-lg mx-auto font-light">
-          I'm currently looking for internship opportunities and thesis projects. Let's connect!
+          I'm currently looking for internship and working student opportunities. Let's connect!
         </p>
         
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">

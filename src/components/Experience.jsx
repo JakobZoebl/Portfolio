@@ -2,23 +2,23 @@ import React from 'react';
 
 const ExperienceItem = ({ role, company, period, duration, description, colorClass, dotColorClass }) => (
   <div className="reveal relative mb-16 md:grid md:grid-cols-2 md:gap-12 items-center group">
-    <div className={`absolute left-8 md:left-1/2 w-4 h-4 rounded-full border-2 ${dotColorClass} bg-[#2C2B2B] -translate-x-[9px] md:-translate-x-[9px] z-10 transition-colors`}></div>
+    <div className={`absolute left-8 md:left-1/2 w-4 h-4 rounded-full border-2 ${dotColorClass} bg-slate-100 dark:bg-[#2C2B2B] -translate-x-[9px] md:-translate-x-[9px] z-10 transition-colors`}></div>
     
     <div className="hidden md:block text-right">
-      <h3 className={`text-xl font-bold text-white group-hover:${colorClass} transition-colors font-display`}>{role}</h3>
-      <p className="text-slate-400 font-medium">{company}</p>
+      <h3 className={`text-xl font-bold text-slate-900 dark:text-white group-hover:${colorClass} transition-colors font-display`}>{role}</h3>
+      <p className="text-slate-500 dark:text-slate-400 font-medium">{company}</p>
     </div>
     
     <div className="ml-8 md:ml-0 md:col-start-2">
-      <div className="p-6 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors border border-white/10">
+      <div className="p-6 rounded-2xl bg-white dark:bg-white/5 hover:bg-slate-50 dark:hover:bg-white/10 transition-colors border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-none">
         <div className="md:hidden mb-2">
-          <h3 className="text-xl font-bold text-white">{role}</h3>
-          <p className="text-slate-400 font-medium">{company}</p>
+          <h3 className="text-xl font-bold text-slate-900 dark:text-white">{role}</h3>
+          <p className="text-slate-500 dark:text-slate-400 font-medium">{company}</p>
         </div>
         <span className={`text-xs font-mono mb-3 block tracking-wide ${colorClass}`}>
           {period} · {duration}
         </span>
-        <p className="text-slate-300 text-sm leading-relaxed">{description}</p>
+        <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">{description}</p>
       </div>
     </div>
   </div>
@@ -26,24 +26,24 @@ const ExperienceItem = ({ role, company, period, duration, description, colorCla
 
 const ExperienceItemRTL = ({ role, company, period, duration, description, colorClass, dotColorClass }) => (
   <div className="reveal relative mb-16 md:grid md:grid-cols-2 md:gap-12 items-center group">
-    <div className={`absolute left-8 md:left-1/2 w-4 h-4 rounded-full border-2 ${dotColorClass} bg-[#2C2B2B] -translate-x-[9px] md:-translate-x-[9px] z-10 transition-colors`}></div>
+    <div className={`absolute left-8 md:left-1/2 w-4 h-4 rounded-full border-2 ${dotColorClass} bg-slate-100 dark:bg-[#2C2B2B] -translate-x-[9px] md:-translate-x-[9px] z-10 transition-colors`}></div>
     
     <div className="ml-8 md:ml-0 md:text-right">
-      <div className="p-6 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors border border-white/10">
+      <div className="p-6 rounded-2xl bg-white dark:bg-white/5 hover:bg-slate-50 dark:hover:bg-white/10 transition-colors border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-none">
         <div className="md:hidden mb-2">
-          <h3 className="text-xl font-bold text-white">{role}</h3>
-          <p className="text-slate-400 font-medium">{company}</p>
+          <h3 className="text-xl font-bold text-slate-900 dark:text-white">{role}</h3>
+          <p className="text-slate-500 dark:text-slate-400 font-medium">{company}</p>
         </div>
         <span className={`text-xs font-mono mb-3 block tracking-wide ${colorClass}`}>
           {period} · {duration}
         </span>
-        <p className="text-slate-300 text-sm leading-relaxed">{description}</p>
+        <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">{description}</p>
       </div>
     </div>
     
     <div className="hidden md:block">
-      <h3 className={`text-xl font-bold text-white group-hover:${colorClass} transition-colors font-display`}>{role}</h3>
-      <p className="text-slate-400 font-medium">{company}</p>
+      <h3 className={`text-xl font-bold text-slate-900 dark:text-white group-hover:${colorClass} transition-colors font-display`}>{role}</h3>
+      <p className="text-slate-500 dark:text-slate-400 font-medium">{company}</p>
     </div>
   </div>
 );
@@ -51,10 +51,10 @@ const ExperienceItemRTL = ({ role, company, period, duration, description, color
 
 const Experience = () => {
   return (
-    <section id="experience" className="parallax-slide py-24 px-6 bg-[#2C2B2B] transition-colors">
+    <section id="experience" className="parallax-slide py-24 px-6 bg-slate-100 dark:bg-[#2C2B2B] transition-colors">
       <div className="max-w-[1000px] mx-auto">
         <div className="text-center mb-16 reveal">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 font-display text-white">Experience</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 font-display text-slate-900 dark:text-white">Experience</h2>
           <div className="w-20 h-1 bg-primary mx-auto rounded-full"></div>
         </div>
         <div className="relative pl-8 md:pl-0">
@@ -81,23 +81,23 @@ const Experience = () => {
           />
 
           <div className="reveal relative md:grid md:grid-cols-2 md:gap-12 items-center group">
-            <div className="absolute left-8 md:left-1/2 w-4 h-4 rounded-full border-2 border-slate-500 bg-[#2C2B2B] -translate-x-[9px] md:-translate-x-[9px] z-10 group-hover:bg-slate-500 transition-colors"></div>
+            <div className="absolute left-8 md:left-1/2 w-4 h-4 rounded-full border-2 border-slate-500 bg-slate-100 dark:bg-[#2C2B2B] -translate-x-[9px] md:-translate-x-[9px] z-10 group-hover:bg-slate-500 transition-colors"></div>
             
             <div className="hidden md:block text-right">
-              <h3 className="text-xl font-bold text-white group-hover:text-slate-300 transition-colors font-display">Civil Service</h3>
-              <p className="text-slate-400 font-medium">Lebenshilfe Wels</p>
+              <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-slate-500 transition-colors font-display">Civil Service</h3>
+              <p className="text-slate-500 dark:text-slate-400 font-medium">Lebenshilfe Wels</p>
             </div>
             
             <div className="ml-8 md:ml-0 md:col-start-2">
-              <div className="p-6 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors border border-white/10">
+              <div className="p-6 rounded-2xl bg-white dark:bg-white/5 hover:bg-slate-50 dark:hover:bg-white/10 transition-colors border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-none">
                 <div className="md:hidden mb-2">
-                  <h3 className="text-xl font-bold text-white">Civil Service</h3>
-                  <p className="text-slate-400 font-medium">Lebenshilfe Wels</p>
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white">Civil Service</h3>
+                  <p className="text-slate-500 dark:text-slate-400 font-medium">Lebenshilfe Wels</p>
                 </div>
-                <span className="text-xs font-mono text-slate-400 mb-3 block tracking-wide">
+                <span className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-3 block tracking-wide">
                   2022 – 2023 · 9 MONTHS
                 </span>
-                <p className="text-slate-300 text-sm leading-relaxed">Supported people with various mental impairments in a day care center.</p>
+                <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">Supported people with various mental impairments in a day care center.</p>
               </div>
             </div>
           </div>

@@ -18,6 +18,7 @@ function useTextRect(ref, line1Ref, line2Ref) {
       const parent = el.closest('.hero-sticky');
       if (!parent) return;
       const parentRect = parent.getBoundingClientRect();
+      const elRect = el.getBoundingClientRect();
       
       const w1 = line1Ref.current ? line1Ref.current.offsetWidth : 0;
       const w2 = line2Ref.current ? line2Ref.current.offsetWidth : 0;
@@ -25,8 +26,8 @@ function useTextRect(ref, line1Ref, line2Ref) {
 
       setRect({
         // Position relative to the sticky container
-        x: el.offsetLeft,
-        y: el.offsetTop,
+        x: elRect.left - parentRect.left,
+        y: elRect.top - parentRect.top,
         width: el.offsetWidth,
         height: el.offsetHeight,
         parentWidth: parentRect.width,
@@ -38,7 +39,7 @@ function useTextRect(ref, line1Ref, line2Ref) {
     };
 
     // Wait for fonts + fadeIn animation to finish
-    const timer = setTimeout(measure, 1500);
+    const timer = setTimeout(measure, 0);
     window.addEventListener('resize', measure);
     return () => {
       clearTimeout(timer);
@@ -108,7 +109,7 @@ const Hero = ({ heroProgress = 0, phase2Progress = 0, phase3Progress = 0 }) => {
     const opacity = 1 - easedProgress * 1.5; // Fade out faster than the move
 
     return {
-      transform: `translate(${translateX}px, -50%)`,
+      transform: `translateX(${translateX}px)`,
       opacity: Math.max(0, opacity),
       willChange: 'transform, opacity',
     };
@@ -131,14 +132,14 @@ const Hero = ({ heroProgress = 0, phase2Progress = 0, phase3Progress = 0 }) => {
   };
 
   return (
-    <div className="hero-scroll-container relative" style={{ height: '550vh' }}>
+    <div className="hero-scroll-container relative" style={{ height: '400vh' }}>
       <section className="hero-sticky sticky top-0 h-screen flex items-center overflow-hidden">
 
         <div className="max-w-[1400px] mx-auto px-6 w-full relative z-20 flex flex-col items-start justify-center font-display pointer-events-none min-h-[80vh]">
           <h1
             ref={textRef}
             style={getTextStyle()}
-            className="text-[28vw] sm:text-[25vw] md:text-[22vw] lg:text-[20vw] font-black leading-[1.1] tracking-[-0.04em] text-slate-900 dark:text-white drop-shadow-2xl transition-colors opacity-0 text-left animate-[fadeIn_2s_ease-out_1s_forwards] font-['IBM_Plex_Sans'] uppercase z-10"
+            className="text-[28vw] sm:text-[25vw] md:text-[22vw] lg:text-[20vw] font-black leading-[1.1] tracking-[-0.04em] text-slate-900 dark:text-white drop-shadow-2xl transition-colors opacity-100 text-left font-['IBM_Plex_Sans'] uppercase z-10"
           >
             <span ref={line1Ref} className="inline-block relative z-10" style={getLineStyle(0)}>
               {/* First large circle (visual height of capitals, placed further to the RIGHT side of JAKOB) */}
@@ -154,10 +155,10 @@ const Hero = ({ heroProgress = 0, phase2Progress = 0, phase3Progress = 0 }) => {
               <span className="text-gradient">ZÖBL</span>
               {/* Subtext description - scaled up, bolded, and flies out on scroll */}
               <span 
-                className="ml-[3em] text-[0.08em] lg:text-[0.1em] font-bold text-white normal-case font-['IBM_Plex_Sans'] tracking-tight absolute left-full top-1/2 whitespace-nowrap -webkit-text-fill-color-initial pointer-events-auto"
+                className="ml-[3em] text-[0.08em] lg:text-[0.1em] font-bold text-slate-900 dark:text-white normal-case font-['IBM_Plex_Sans'] tracking-tight absolute left-full top-1/2 whitespace-nowrap -webkit-text-fill-color-initial pointer-events-auto"
                 style={getSubtextStyle()}
               >
-                BsC Computer Science Student at TUM
+                B.Sc. Computer Science Student at TUM
               </span>
             </span>
           </h1>

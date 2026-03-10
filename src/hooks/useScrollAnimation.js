@@ -17,10 +17,11 @@ export default function useScrollAnimation() {
     const phase1End = vh * 1.5;
     // Hero text moves to top, marquees slide in over the next 150vh
     const phase2End = vh * 3.0;
-    // Marquees slide out over the next 150vh
-    const phase3End = vh * 4.5;
+    // Marquees slide out while the Hero section scrolls up over the next 100vh
+    const phase3End = vh * 4.0;
     
-    const animationEnd = phase3End;
+    // Background layer un-locks and scrolls up starting at phase2End
+    const animationEnd = phase2End;
 
     const navbarProgress = Math.min(1, Math.max(0, scrollY / phase1End));
     const heroProgress = Math.min(1, Math.max(0, scrollY / phase1End));

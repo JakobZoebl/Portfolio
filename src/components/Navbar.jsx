@@ -44,6 +44,7 @@ const Navbar = ({ navbarProgress = 1 }) => {
           <a className="text-sm font-medium text-slate-400 hover:text-primary transition-colors" href="#experience">Experience</a>
           <a className="text-sm font-medium text-slate-400 hover:text-primary transition-colors" href="#projects">Projects</a>
           <a className="text-sm font-medium text-slate-400 hover:text-primary transition-colors" href="#education">Education</a>
+          <a className="text-sm font-medium text-slate-400 hover:text-primary transition-colors" href="#skills">Skills</a>
           <a className="text-sm font-medium text-slate-400 hover:text-primary transition-colors" href="#contact">Contact</a>
         </nav>
         <div className="flex items-center gap-4">
@@ -79,6 +80,7 @@ const Navbar = ({ navbarProgress = 1 }) => {
             <a onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium text-slate-400 hover:text-primary transition-colors py-2" href="#experience">Experience</a>
             <a onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium text-slate-400 hover:text-primary transition-colors py-2" href="#projects">Projects</a>
             <a onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium text-slate-400 hover:text-primary transition-colors py-2" href="#education">Education</a>
+            <a onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium text-slate-400 hover:text-primary transition-colors py-2" href="#skills">Skills</a>
             <a onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium text-slate-400 hover:text-primary transition-colors py-2" href="#contact">Contact</a>
           </nav>
         </div>
