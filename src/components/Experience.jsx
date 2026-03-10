@@ -65,7 +65,7 @@ const Experience = () => {
             company="Hensoldt AG"
             period="2024 – 2025"
             duration="9 MONTHS"
-            description="Backend C++ and Python development in the area of Drone-Defense. Built robust systems for real-time threat detection and response."
+            description="Backend C++ and Python development in the area of Drone-Defense."
             colorClass="text-primary"
             dotColorClass="border-primary group-hover:bg-primary shadow-[0_0_10px_rgba(0,101,189,0.5)]"
           />
@@ -75,7 +75,7 @@ const Experience = () => {
             company="FH OÖ Management GmbH"
             period="2023"
             duration="2 MONTHS"
-            description="Managed the conversion from Typo3 to CraftCMS, migrating content and ensuring seamless transition."
+            description="Managed the content migration from Typo3 to CraftCMS"
             colorClass="text-accent"
             dotColorClass="border-accent group-hover:bg-accent shadow-[0_0_10px_rgba(0,196,214,0.5)]"
           />
@@ -97,7 +97,7 @@ const Experience = () => {
                 <span className="text-xs font-mono text-slate-400 mb-3 block tracking-wide">
                   2022 – 2023 · 9 MONTHS
                 </span>
-                <p className="text-slate-300 text-sm leading-relaxed">Supported people with various mental impairments in a day care center. Developed empathy and communication skills.</p>
+                <p className="text-slate-300 text-sm leading-relaxed">Supported people with various mental impairments in a day care center.</p>
               </div>
             </div>
           </div>
