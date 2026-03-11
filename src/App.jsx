@@ -16,12 +16,12 @@ function App() {
 
 
   useEffect(() => {
-    // Scroll Reveal with IntersectionObserver
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if(e.isIntersecting) {
           e.target.classList.add('visible');
-          observer.unobserve(e.target);
+        } else {
+          e.target.classList.remove('visible');
         }
       });
     }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
@@ -50,9 +50,15 @@ function App() {
         {/* Graffiti spray background elements */}
         {/* TUM Blue blurred dot (top right) */}
         <div className="tum-blue-spray"></div>
+        
+        {/* TUM Blue blurred dot (bottom right) */}
+        <div className="tum-blue-spray-bottom"></div>
 
         {/* Diagonal blurred white stroke */}
         <div className="white-diagonal-stroke"></div>
+
+        {/* Horizontal disabled white stroke (bottom) */}
+        <div className="white-horizontal-stroke"></div>
       </div>
       
       <Navbar navbarProgress={navbarProgress} />

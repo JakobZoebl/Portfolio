@@ -229,52 +229,6 @@
 
   /* ===== CUSTOM GRAFFITI BACKGROUND ELEMENTS ===== */
 
-  @keyframes blurPulse {
-    0% {
-      filter: blur(40px);
-      opacity: 0.85;
-      transform: scale(1);
-    }
-    33% {
-      filter: blur(60px);
-      opacity: 1;
-      transform: scale(1.05);
-    }
-    66% {
-      filter: blur(30px);
-      opacity: 0.75;
-      transform: scale(0.95);
-    }
-    100% {
-      filter: blur(40px);
-      opacity: 0.85;
-      transform: scale(1);
-    }
-  }
-
-  @keyframes blurPulseDesktop {
-    0% {
-      filter: blur(80px);
-      opacity: 0.85;
-      transform: scale(1);
-    }
-    33% {
-      filter: blur(120px);
-      opacity: 1;
-      transform: scale(1.05);
-    }
-    66% {
-      filter: blur(60px);
-      opacity: 0.75;
-      transform: scale(0.95);
-    }
-    100% {
-      filter: blur(80px);
-      opacity: 0.85;
-      transform: scale(1);
-    }
-  }
-
   /* TUM Blue Spray Dot - Top Right */
   .tum-blue-spray {
     position: absolute;
@@ -290,7 +244,8 @@
       transparent 100%
     );
     border-radius: 45% 55% 50% 50%;
-    animation: blurPulse 8s infinite ease-in-out alternate;
+    filter: blur(60px);
+    opacity: 0.85;
     z-index: 0;
   }
 
@@ -300,17 +255,49 @@
       height: 450px;
       top: -10vh;
       right: -5%;
-      animation: blurPulseDesktop 8s infinite ease-in-out alternate;
+      filter: blur(100px);
+      opacity: 0.85;
+    }
+  }
+
+  /* TUM Blue Spray Dot - Bottom Right */
+  .tum-blue-spray-bottom {
+    position: absolute;
+    bottom: -60vh;
+    right: -5%;
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.95) 0%,
+      rgba(7, 117, 184, 1) 45%,
+      rgba(7, 117, 184, 0.6) 75%,
+      transparent 100%
+    );
+    border-radius: 45% 55% 50% 50%;
+    filter: blur(80px);
+    opacity: 0.85;
+    z-index: 0;
+  }
+
+  @media (min-width: 768px) {
+    .tum-blue-spray-bottom {
+      width: 550px;
+      height: 550px;
+      bottom: -100vh;
+      right: -5%;
+      filter: blur(120px);
+      opacity: 0.85;
     }
   }
 
   /* White Diagonal Stroke - Below Blue Dot */
   .white-diagonal-stroke {
     position: absolute;
-    top: -300vh;
-    right: 15%;
+    top: -150vh;
+    right: 0%;
     width: 120px;
-    height: 8000px;
+    height: 400vh;
     /* Diagonal gradient fading out at both ends - much more visible */
     background: linear-gradient(
       160deg,
@@ -325,7 +312,7 @@
     );
     border-radius: 50% / 5%;
     filter: blur(60px);
-    transform: rotate(15deg);
+    transform: rotate(10deg);
     z-index: 0;
   }
 
@@ -347,6 +334,53 @@
     .white-diagonal-stroke {
       width: 200px;
       filter: blur(100px);
+    }
+  }
+
+  /* White Horizontal Stroke - Bottom */
+  .white-horizontal-stroke {
+    position: absolute;
+    bottom: -55vh;
+    right: -20%;
+    width: 150%;
+    height: 150px;
+    /* Horizontal gradient fading out at both ends */
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(0, 0, 0, 0.05) 10%,
+      rgba(0, 0, 0, 0.25) 25%,
+      rgba(0, 0, 0, 0.7) 40%,
+      rgba(0, 0, 0, 0.7) 60%,
+      rgba(0, 0, 0, 0.25) 75%,
+      rgba(0, 0, 0, 0.05) 90%,
+      transparent 100%
+    );
+    border-radius: 50%;
+    filter: blur(80px);
+    transform: rotate(-15deg);
+    z-index: 0;
+  }
+
+  .dark .white-horizontal-stroke {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.05) 10%,
+      rgba(255, 255, 255, 0.25) 25%,
+      rgba(255, 255, 255, 0.7) 40%,
+      rgba(255, 255, 255, 0.7) 60%,
+      rgba(255, 255, 255, 0.25) 75%,
+      rgba(255, 255, 255, 0.05) 90%,
+      transparent 100%
+    );
+  }
+
+  @media (min-width: 768px) {
+    .white-horizontal-stroke {
+      height: 250px;
+      filter: blur(120px);
+      bottom: -40vh;
     }
   }
 }
