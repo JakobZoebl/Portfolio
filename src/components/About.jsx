@@ -30,13 +30,16 @@ const About = () => {
           <div className="w-20 h-1 bg-primary rounded-full mb-8"></div>
           
           <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
-            I'm a Computer Science student at the <strong className="text-slate-900 dark:text-white">Technical University of Munich (TUM)</strong>, and recently did an ERASMUS+ exchange at <strong className="text-slate-900 dark:text-white">TU Delft</strong> in the Netherlands.
+            I'm a Computer Science student at the <strong className="text-slate-900 dark:text-white">Technical University of Munich (TUM)</strong> with global perspective from my recent ERASMUS+ exchange at <strong className="text-slate-900 dark:text-white">TU Delft</strong> in the Netherlands.
           </p>
           <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
-            With hands-on experience as a Software Engineer at <strong className="text-slate-900 dark:text-white">Hensoldt AG</strong> working on drone defense systems in C++ and Python, I combine academic knowledge with real-world engineering experience.
+            I always aim to challenge myself and work on complex problems, whether that's by competing in various hackathons, participating in ambitious academic projects or taking on interesting working student positions.
+          </p>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+            Working as a Software Engineer at <strong className="text-slate-900 dark:text-white">Hensoldt AG</strong> provided me with valuable real-world experience at solving real world problems with my practical skills.
           </p>
           <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
-            My interests span <strong className="text-slate-900 dark:text-white">AI & Machine Learning</strong>, <strong className="text-slate-900 dark:text-white">Natural Language Processing</strong>, and building scalable software systems.
+            My technical passions lie in <strong className="text-slate-900 dark:text-white">GenAI, Machine Learning</strong>, <strong className="text-slate-900 dark:text-white">Natural Language Processing</strong>, and scalable cloud software infrastructure.
           </p>
         
         </div>
