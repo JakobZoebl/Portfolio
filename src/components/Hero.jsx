@@ -155,7 +155,7 @@ const Hero = ({ heroProgress = 0, phase2Progress = 0, phase3Progress = 0 }) => {
               <span className="text-gradient">ZÖBL</span>
               {/* Subtext description - scaled up, bolded, and flies out on scroll */}
               <span 
-                className="ml-[3em] text-[0.08em] lg:text-[0.1em] font-bold text-slate-900 dark:text-white normal-case font-['IBM_Plex_Sans'] tracking-tight absolute left-full top-1/2 whitespace-nowrap -webkit-text-fill-color-initial pointer-events-auto"
+                className="absolute top-full left-0 md:left-full md:top-1/2 mt-[0.5em] md:mt-0 md:ml-[3em] text-[0.08em] lg:text-[0.1em] font-bold text-slate-900 dark:text-white normal-case font-['IBM_Plex_Sans'] tracking-tight whitespace-nowrap -webkit-text-fill-color-initial pointer-events-auto"
                 style={getSubtextStyle()}
               >
                 B.Sc. Computer Science Student at TUM

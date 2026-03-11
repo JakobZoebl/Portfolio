@@ -127,8 +127,8 @@
 
   .glass-panel {
     background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
     border: 1px solid rgba(0, 0, 0, 0.05);
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
   }
@@ -232,10 +232,10 @@
   /* TUM Blue Spray Dot - Top Right */
   .tum-blue-spray {
     position: absolute;
-    top: -5vh;
-    right: -5%;
-    width: 180px;
-    height: 180px;
+    top: -10vh;
+    right: -20%;
+    width: 340px;
+    height: 400px;
     background: radial-gradient(
       circle,
       rgba(255, 255, 255, 0.95) 0%,
@@ -263,10 +263,10 @@
   /* TUM Blue Spray Dot - Bottom Right */
   .tum-blue-spray-bottom {
     position: absolute;
-    bottom: -60vh;
-    right: -5%;
-    width: 250px;
-    height: 250px;
+    bottom: -170vh;
+    right: -50%;
+    width: 450px;
+    height: 450px;
     background: radial-gradient(
       circle,
       rgba(255, 255, 255, 0.95) 0%,
@@ -294,10 +294,10 @@
   /* White Diagonal Stroke - Below Blue Dot */
   .white-diagonal-stroke {
     position: absolute;
-    top: -150vh;
-    right: 0%;
+    top: -200vh;
+    right: 20%;
     width: 120px;
-    height: 400vh;
+    height: 800vh;
     /* Diagonal gradient fading out at both ends - much more visible */
     background: linear-gradient(
       160deg,
@@ -312,7 +312,7 @@
     );
     border-radius: 50% / 5%;
     filter: blur(60px);
-    transform: rotate(10deg);
+    transform: rotate(5deg);
     z-index: 0;
   }
 
@@ -333,16 +333,20 @@
   @media (min-width: 768px) {
     .white-diagonal-stroke {
       width: 200px;
+      top: -150vh;
+      height: 400vh;
+      transform: rotate(10deg);
       filter: blur(100px);
     }
   }
 
   /* White Horizontal Stroke - Bottom */
   .white-horizontal-stroke {
+    display: none;
     position: absolute;
-    bottom: -55vh;
+    bottom: -85vh;
     right: -20%;
-    width: 150%;
+    width: 300%;
     height: 150px;
     /* Horizontal gradient fading out at both ends */
     background: linear-gradient(
@@ -358,7 +362,7 @@
     );
     border-radius: 50%;
     filter: blur(80px);
-    transform: rotate(-15deg);
+    transform: rotate(-35deg);
     z-index: 0;
   }
 
@@ -378,9 +382,12 @@
 
   @media (min-width: 768px) {
     .white-horizontal-stroke {
+      display: block;
+      width: 150%;
       height: 250px;
       filter: blur(120px);
       bottom: -40vh;
+      transform: rotate(-15deg);
     }
   }
 }
