@@ -335,6 +335,7 @@
       width: 200px;
       top: -150vh;
       height: 400vh;
+      right: 0%;
       transform: rotate(10deg);
       filter: blur(100px);
     }
@@ -344,9 +345,9 @@
   .white-horizontal-stroke {
     display: none;
     position: absolute;
-    bottom: -85vh;
+    bottom: -55vh;
     right: -20%;
-    width: 300%;
+    width: 150%;
     height: 150px;
     /* Horizontal gradient fading out at both ends */
     background: linear-gradient(
@@ -362,7 +363,7 @@
     );
     border-radius: 50%;
     filter: blur(80px);
-    transform: rotate(-35deg);
+    transform: rotate(-15deg);
     z-index: 0;
   }
 
@@ -383,11 +384,9 @@
   @media (min-width: 768px) {
     .white-horizontal-stroke {
       display: block;
-      width: 150%;
       height: 250px;
       filter: blur(120px);
       bottom: -40vh;
-      transform: rotate(-15deg);
     }
   }
 }
