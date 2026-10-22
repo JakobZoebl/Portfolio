@@ -61,11 +61,11 @@ const Experience = () => {
           <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary/0 via-primary/30 to-primary/0 md:-ml-[0.5px]"></div>
           
           <ExperienceItem 
-            role="Generative AI (Working Student)"
+            role="Generative AI Developer (Working Student)"
             company="BMW AG"
             period="2026 – Present"
             duration="CURRENT"
-            description="Developer for a multi-agent Generative AI tool in the retail domain."
+            description="Developer for a a multi-agent GenAI tool in the retail domain, including a full RAG system, A2A orchestration and various MCP servers. Main responsibilities include comprehensive testing across the entire pipeline from retrieval to final answer quality and integration of new tools into the existing architecture."
             colorClass="text-primary"
             dotColorClass="border-primary group-hover:bg-primary shadow-[0_0_10px_rgba(0,101,189,0.5)]"
           />
@@ -75,7 +75,7 @@ const Experience = () => {
             company="Hensoldt AG"
             period="2024 – 2025"
             duration="9 MONTHS"
-            description="Backend C++ and Python development in the area of Drone-Defense."
+            description="Backend C++ and Python development in the are of drone defense. Primary work on a 3D simulation system to test various integrations and real-time computer vision applications."
             colorClass="text-primary"
             dotColorClass="border-primary group-hover:bg-primary shadow-[0_0_10px_rgba(0,101,189,0.5)]"
           />
@@ -85,7 +85,7 @@ const Experience = () => {
             company="FH OÖ Management GmbH"
             period="2023"
             duration="2 MONTHS"
-            description="Managed the content migration from Typo3 to CraftCMS"
+            description="Managed the CMS migration from Typo3 to CraftCMS"
             colorClass="text-accent"
             dotColorClass="border-accent group-hover:bg-accent shadow-[0_0_10px_rgba(0,196,214,0.5)]"
           />
@@ -95,7 +95,7 @@ const Experience = () => {
             company="Lebenshilfe Wels"
             period="2022 – 2023"
             duration="9 MONTHS"
-            description="Supported people with various mental impairments in a day care center."
+            description="Supported people with various mental disabilities in a day care center."
             colorClass="text-slate-500 dark:text-slate-400"
             dotColorClass="border-slate-500 group-hover:bg-slate-500"
             isLast={true}

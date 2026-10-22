@@ -19,7 +19,7 @@ function useTextRect(ref, line1Ref, line2Ref) {
       if (!parent) return;
       const parentRect = parent.getBoundingClientRect();
       const elRect = el.getBoundingClientRect();
-      
+
       const w1 = line1Ref.current ? line1Ref.current.offsetWidth : 0;
       const w2 = line2Ref.current ? line2Ref.current.offsetWidth : 0;
       const maxW = Math.max(w1, w2, el.offsetWidth);
@@ -84,7 +84,7 @@ const Hero = ({ heroProgress = 0, phase2Progress = 0, phase3Progress = 0 }) => {
     // Base Translation for Phase 1
     const baseTranslateX = (targetCenterX - currentCenterX) * easedProgress;
     const baseTranslateY = (targetCenterY - currentCenterY) * easedProgress;
-    
+
     // Additional Translation for Phase 2
     const phase2TranslateY = (phase2TargetY - targetCenterY) * easedPhase2;
 
@@ -144,9 +144,9 @@ const Hero = ({ heroProgress = 0, phase2Progress = 0, phase3Progress = 0 }) => {
             <span ref={line1Ref} className="inline-block relative z-10" style={getLineStyle(0)}>
               {/* First large circle (visual height of capitals, shifted left so it stays comfortably on-screen) */}
               <span className="absolute top-1/2 -right-[1.05em] -translate-y-1/2 h-[0.8em] w-[0.8em] rounded-full z-[-1]" style={{ backgroundColor: '#0775B8' }}></span>
-              
+
               JAKOB
-              
+
               {/* Small dot (next to JAKOB text like ° degree sign, nudged down to align with top of characters) */}
               <span className="absolute top-[0.1em] -right-[0.2em] h-[0.15em] w-[0.15em] rounded-full" style={{ backgroundColor: '#0775B8' }}></span>
             </span>
@@ -154,11 +154,11 @@ const Hero = ({ heroProgress = 0, phase2Progress = 0, phase3Progress = 0 }) => {
             <span ref={line2Ref} className="inline-block relative z-10" style={getLineStyle(1)}>
               <span className="text-gradient">ZÖBL</span>
               {/* Subtext description - shifted closer to ZÖBL so it never clips on the right */}
-              <span 
+              <span
                 className="absolute top-full left-0 md:left-full md:top-1/2 mt-[0.5em] md:mt-0 md:ml-[1.2em] lg:ml-[1.5em] text-[0.08em] lg:text-[0.09em] font-bold text-slate-900 dark:text-white normal-case font-['IBM_Plex_Sans'] tracking-tight whitespace-nowrap -webkit-text-fill-color-initial pointer-events-auto"
                 style={getSubtextStyle()}
               >
-                M.Sc. Computer Science Student at TUM
+                M.Sc. Computer Science at TUM
               </span>
             </span>
           </h1>
