@@ -160,50 +160,66 @@ const Projects = () => {
             </a>
           </div>
         </div>
-        
-        {/* Featured Project */}
+
+        {/* Single Full-Width Featured Project: Bachelor's Thesis */}
         <a 
-          href="https://f1prediction.live" 
-          target="_blank" 
-          rel="noreferrer" 
+          href="/b_thesis.pdf"
+          download="b_thesis.pdf"
+          target="_blank"
+          rel="noreferrer"
           className="reveal block featured-group rounded-2xl bg-slate-50 dark:bg-[#111111] border border-slate-200 dark:border-slate-800 overflow-hidden hover:border-primary/50 transition-all duration-300 mb-8 cursor-pointer"
         >
           <div className="grid lg:grid-cols-2">
-            <div className="bg-slate-100 dark:bg-slate-900/50 aspect-[16/10] lg:aspect-auto relative overflow-hidden group/iframe border-b lg:border-b-0 lg:border-r border-slate-200 dark:border-slate-800">
+            <div className="bg-slate-100 dark:bg-slate-900/50 aspect-[16/10] lg:aspect-auto lg:min-h-[340px] relative overflow-hidden group/iframe border-b lg:border-b-0 lg:border-r border-slate-200 dark:border-slate-800">
               <iframe 
-                src="https://f1prediction.live" 
-                className="absolute top-0 left-0 w-[calc(400%+80px)] h-[400%] scale-[0.25] sm:w-[calc(300%+60px)] sm:h-[300%] sm:scale-[0.334] md:w-[calc(200%+40px)] md:h-[200%] md:scale-[0.5] origin-top-left border-0 pointer-events-none group-hover/iframe:pointer-events-auto transition-opacity" 
-                title="F1 Prediction Live Preview" 
-                loading="lazy"
-              ></iframe>
+                src="/b_thesis.pdf#toolbar=0&navpanes=0&scrollbar=0" 
+                title="Bachelor's Thesis PDF Preview"
+                scrolling="no"
+                className="absolute top-0 left-0 w-[calc(100%+24px)] h-[calc(100%+50px)] -mt-[50px] border-0 pointer-events-none opacity-95 transition-all duration-300 group-hover/iframe:opacity-100 group-hover/iframe:pointer-events-auto"
+              />
             </div>
             <div className="p-8 lg:p-10 flex flex-col justify-center">
-              <div className="flex items-center gap-2 mb-4">
-                <span className="px-2.5 py-0.5 rounded text-xs font-bold bg-primary/20 text-primary">Featured</span>
-                <span className="px-2.5 py-0.5 rounded text-xs font-bold bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300">Live Preview</span>
+              <div className="flex flex-wrap items-center gap-2 mb-4">
+                <span className="px-2.5 py-0.5 rounded text-xs font-bold bg-primary/20 text-primary">Bachelor's Thesis · TUM</span>
+                <span className="px-2.5 py-0.5 rounded text-xs font-bold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400">Thesis: 1.0 · Defense: 1.0</span>
               </div>
-              <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3 font-display featured-group-hover:text-primary transition-colors">F1 Prediction Application</h3>
-              <p className="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">A live preview of my Formula 1 prediction application. Built to forecast race outcomes and analyze performance using machine learning models and dynamic frontend charts. Try it out right here!</p>
+              <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3 font-display featured-group-hover:text-primary transition-colors">
+                Graphical Perception in Multimodal LLMs
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+                A systematic evaluation of how Multimodal Large Language Models perceive and decode quantities across visual encoding channels, prompts, and capability tiers. Awarded the best possible grade of <strong className="text-slate-900 dark:text-white">1.0</strong> for both the written thesis and the thesis defense, and led to a follow-up paper accepted at <strong className="text-slate-900 dark:text-white">VISxGenAI @ IEEE VIS 2026 in Boston</strong>.
+              </p>
               <div className="flex flex-wrap gap-2 mb-6">
-                <span className="text-xs font-mono px-2 py-1 rounded bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Python</span>
-                <span className="text-xs font-mono px-2 py-1 rounded bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Machine Learning</span>
-                <span className="text-xs font-mono px-2 py-1 rounded bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Full Stack</span>
-                <span className="text-xs font-mono px-2 py-1 rounded bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Web</span>
+                <span className="text-xs font-mono px-2 py-1 rounded bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Multimodal LLMs</span>
+                <span className="text-xs font-mono px-2 py-1 rounded bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Graphical Perception</span>
+                <span className="text-xs font-mono px-2 py-1 rounded bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Data Visualization</span>
+                <span className="text-xs font-mono px-2 py-1 rounded bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Grade: 1.0</span>
               </div>
-              <span className="text-xs font-mono text-primary hover:underline w-max">2026 · f1prediction.live ↗</span>
+              <span className="text-xs font-mono text-primary hover:underline w-max">2026 · Download Thesis PDF (b_thesis.pdf) ↓</span>
             </div>
           </div>
         </a>
 
-        {/* Project Bento Grid — overflow hidden so off-screen cards don't cause scrollbars */}
-        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:grid-rows-6 gap-6 overflow-hidden">
+        {/* Project Bento Grid — 4 columns × 8 rows on desktop */}
+        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:grid-rows-8 gap-6 overflow-hidden">
           
           {/* ========== FROM LEFT ========== */}
 
-          {/* Left Column — all 3 from left */}
+          {/* Left Column — 4 cards from left (rows 1-8) */}
           <ProjectCard 
             className="lg:col-span-1 lg:row-span-2 lg:col-start-1 lg:row-start-1"
             side="left" scrollProgress={scrollProgress} staggerOffset={0.0}
+            year="2026" title="VISxGenAI @ IEEE VIS 2026" 
+            description="Follow-up paper co-authored with my supervisor on graphical perception across encoding channels in MLLMs. Accepted for presentation in Boston."
+            icon="article" iconColorClass="bg-amber-500/10 text-amber-500"
+            borderHoverClass="hover:border-amber-400/30" textHoverClass="group-hover:text-amber-400"
+            tags={["IEEE VIS 2026", "Boston", "MLLMs"]}
+            url="/vis26v-sub4341-cam-i26.pdf"
+            isDownload={true}
+          />
+          <ProjectCard 
+            className="lg:col-span-1 lg:row-span-2 lg:col-start-1 lg:row-start-3"
+            side="left" scrollProgress={scrollProgress} staggerOffset={0.06}
             year="2025" title="Home Price Predictor" 
             description="Interhyp Challenge at HackaTUM 2025. Built a home price prediction and recommendation system."
             icon="home" iconColorClass="bg-blue-500/10 text-blue-500"
@@ -211,8 +227,8 @@ const Projects = () => {
             tags={["Python", "Regression", "HackaTUM"]}
           />
           <ProjectCard 
-            className="lg:col-span-1 lg:row-span-2 lg:col-start-1 lg:row-start-3"
-            side="left" scrollProgress={scrollProgress} staggerOffset={0.10}
+            className="lg:col-span-1 lg:row-span-2 lg:col-start-1 lg:row-start-5"
+            side="left" scrollProgress={scrollProgress} staggerOffset={0.12}
             year="2025" title="Demining Software" 
             description="TUM Venture Labs Challenge at TUM Science-Hackathon 2025. Software for managing humanitarian demining."
             icon="bomb" iconColorClass="bg-purple-500/10 text-purple-500"
@@ -221,7 +237,7 @@ const Projects = () => {
             url="https://demining-two.vercel.app"
           />
           <ProjectCard 
-            className="lg:col-span-1 lg:row-span-2 lg:col-start-1 lg:row-start-5"
+            className="lg:col-span-1 lg:row-span-2 lg:col-start-1 lg:row-start-7"
             side="left" scrollProgress={scrollProgress} staggerOffset={0.18}
             year="2024" title="Hedge-Trading Bot" 
             description="Optiver Challenge at HackaTUM 2024. Automated hedge trading strategies with real-time market data."
@@ -230,10 +246,32 @@ const Projects = () => {
             tags={["Python", "Finance", "Optiver"]}
           />
 
-          {/* Steam Data Viz — also from left */}
+          {/* Top-Right Wide Card: F1 Prediction Application (replaces Steam Data Card) */}
           <ProjectCard 
             className="lg:col-span-3 lg:row-span-2 lg:col-start-2 lg:row-start-1"
-            side="left" scrollProgress={scrollProgress} staggerOffset={0.12}
+            side="left" scrollProgress={scrollProgress} staggerOffset={0.08}
+            previewNode={
+              <div className="absolute right-0 top-0 bottom-0 w-1/2 overflow-hidden border-l border-slate-200 dark:border-slate-800 hidden lg:block group/iframe rounded-r-xl">
+                <iframe 
+                  src="https://f1prediction.live" 
+                  className="absolute top-0 left-0 w-[calc(200%+40px)] h-[calc(200%+40px)] scale-50 origin-top-left border-0 pointer-events-none group-hover/iframe:pointer-events-auto transition-opacity" 
+                  title="F1 Prediction Live Preview" 
+                  loading="lazy"
+                ></iframe>
+              </div>
+            }
+            year="2026" title="F1 Prediction Application" 
+            description="Live Formula 1 race outcome forecasting and performance analysis using machine learning models and dynamic charts."
+            icon="sports_motorsports" iconColorClass="bg-primary/10 text-primary"
+            borderHoverClass="hover:border-primary/30" textHoverClass="group-hover:text-primary"
+            tags={["Python", "Machine Learning", "Full Stack", "Web"]}
+            url="https://f1prediction.live"
+          />
+
+          {/* Middle Smaller Bar: Steam Data Visualization */}
+          <ProjectCard 
+            className="lg:col-span-2 lg:row-span-2 lg:col-start-2 lg:row-start-3"
+            side="left" scrollProgress={scrollProgress} staggerOffset={0.14}
             previewNode={
               <div className="absolute right-0 top-0 bottom-0 w-1/2 overflow-hidden border-l border-slate-200 dark:border-slate-800 hidden lg:block group/iframe rounded-r-xl">
                 <iframe 
@@ -256,7 +294,7 @@ const Projects = () => {
 
           {/* NLP Paper — from right */}
           <ProjectCard 
-            className="lg:col-span-2 lg:row-span-4 lg:col-start-2 lg:row-start-3"
+            className="lg:col-span-2 lg:row-span-4 lg:col-start-2 lg:row-start-5"
             side="right" scrollProgress={scrollProgress} staggerOffset={0.22}
             previewNode={
               <div className="w-full h-full min-h-[280px] relative overflow-hidden bg-white dark:bg-slate-900 rounded-t-lg">
@@ -277,9 +315,9 @@ const Projects = () => {
             isDownload={true}
           />
 
-          {/* Right Column — both from right */}
+          {/* Right Column — both from right (rows 3-8) */}
           <ProjectCard 
-            className="lg:col-span-1 lg:row-span-2 lg:col-start-4 lg:row-start-3"
+            className="lg:col-span-1 lg:row-span-3 lg:col-start-4 lg:row-start-3"
             side="right" scrollProgress={scrollProgress} staggerOffset={0.05}
             year="2023" title="Surveying Homepage" 
             description="HTML/CSS and JS Homepage for a local surveying company. Full web development and deployment."
@@ -289,7 +327,7 @@ const Projects = () => {
             url="https://www.geounit.at/"
           />
           <ProjectCard 
-            className="lg:col-span-1 lg:row-span-2 lg:col-start-4 lg:row-start-5"
+            className="lg:col-span-1 lg:row-span-3 lg:col-start-4 lg:row-start-6"
             side="right" scrollProgress={scrollProgress} staggerOffset={0.15}
             year="2022" title="N.E.A.T. Application" 
             description="Neural Network development using Genetic Algorithms (N.E.A.T.) for FlappyBird as part of my Pre-Scientific Paper — Grade: 1.0."

@@ -1,7 +1,7 @@
 import React from 'react';
 
-const ExperienceItem = ({ role, company, period, duration, description, colorClass, dotColorClass }) => (
-  <div className="reveal relative mb-16 md:grid md:grid-cols-2 md:gap-12 items-center group">
+const ExperienceItem = ({ role, company, period, duration, description, colorClass, dotColorClass, isLast = false }) => (
+  <div className={`reveal relative ${isLast ? '' : 'mb-16'} md:grid md:grid-cols-2 md:gap-12 items-center group`}>
     <div className={`absolute left-8 md:left-1/2 w-4 h-4 rounded-full border-2 ${dotColorClass} bg-slate-100 dark:bg-[#2C2B2B] -translate-x-[9px] md:-translate-x-[9px] z-10 transition-colors`}></div>
     
     <div className="hidden md:block text-right">
@@ -16,7 +16,7 @@ const ExperienceItem = ({ role, company, period, duration, description, colorCla
           <p className="text-slate-500 dark:text-slate-400 font-medium">{company}</p>
         </div>
         <span className={`text-xs font-mono mb-3 block tracking-wide ${colorClass}`}>
-          {period} · {duration}
+          {period}{duration ? ` · ${duration}` : ''}
         </span>
         <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">{description}</p>
       </div>
@@ -24,8 +24,8 @@ const ExperienceItem = ({ role, company, period, duration, description, colorCla
   </div>
 );
 
-const ExperienceItemRTL = ({ role, company, period, duration, description, colorClass, dotColorClass }) => (
-  <div className="reveal relative mb-16 md:grid md:grid-cols-2 md:gap-12 items-center group">
+const ExperienceItemRTL = ({ role, company, period, duration, description, colorClass, dotColorClass, isLast = false }) => (
+  <div className={`reveal relative ${isLast ? '' : 'mb-16'} md:grid md:grid-cols-2 md:gap-12 items-center group`}>
     <div className={`absolute left-8 md:left-1/2 w-4 h-4 rounded-full border-2 ${dotColorClass} bg-slate-100 dark:bg-[#2C2B2B] -translate-x-[9px] md:-translate-x-[9px] z-10 transition-colors`}></div>
     
     <div className="ml-8 md:ml-0 md:text-right">
@@ -35,7 +35,7 @@ const ExperienceItemRTL = ({ role, company, period, duration, description, color
           <p className="text-slate-500 dark:text-slate-400 font-medium">{company}</p>
         </div>
         <span className={`text-xs font-mono mb-3 block tracking-wide ${colorClass}`}>
-          {period} · {duration}
+          {period}{duration ? ` · ${duration}` : ''}
         </span>
         <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">{description}</p>
       </div>
@@ -61,6 +61,16 @@ const Experience = () => {
           <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary/0 via-primary/30 to-primary/0 md:-ml-[0.5px]"></div>
           
           <ExperienceItem 
+            role="Generative AI (Working Student)"
+            company="BMW AG"
+            period="2026 – Present"
+            duration="CURRENT"
+            description="Developer for a multi-agent Generative AI tool in the retail domain."
+            colorClass="text-primary"
+            dotColorClass="border-primary group-hover:bg-primary shadow-[0_0_10px_rgba(0,101,189,0.5)]"
+          />
+
+          <ExperienceItemRTL 
             role="Software Engineer (Working Student)"
             company="Hensoldt AG"
             period="2024 – 2025"
@@ -70,7 +80,7 @@ const Experience = () => {
             dotColorClass="border-primary group-hover:bg-primary shadow-[0_0_10px_rgba(0,101,189,0.5)]"
           />
 
-          <ExperienceItemRTL 
+          <ExperienceItem 
             role="Content Management"
             company="FH OÖ Management GmbH"
             period="2023"
@@ -80,27 +90,16 @@ const Experience = () => {
             dotColorClass="border-accent group-hover:bg-accent shadow-[0_0_10px_rgba(0,196,214,0.5)]"
           />
 
-          <div className="reveal relative md:grid md:grid-cols-2 md:gap-12 items-center group">
-            <div className="absolute left-8 md:left-1/2 w-4 h-4 rounded-full border-2 border-slate-500 bg-slate-100 dark:bg-[#2C2B2B] -translate-x-[9px] md:-translate-x-[9px] z-10 group-hover:bg-slate-500 transition-colors"></div>
-            
-            <div className="hidden md:block text-right">
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-slate-500 transition-colors font-display">Civil Service</h3>
-              <p className="text-slate-500 dark:text-slate-400 font-medium">Lebenshilfe Wels</p>
-            </div>
-            
-            <div className="ml-8 md:ml-0 md:col-start-2">
-              <div className="p-6 rounded-2xl bg-white dark:bg-white/5 hover:bg-slate-50 dark:hover:bg-white/10 transition-colors border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-none">
-                <div className="md:hidden mb-2">
-                  <h3 className="text-xl font-bold text-slate-900 dark:text-white">Civil Service</h3>
-                  <p className="text-slate-500 dark:text-slate-400 font-medium">Lebenshilfe Wels</p>
-                </div>
-                <span className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-3 block tracking-wide">
-                  2022 – 2023 · 9 MONTHS
-                </span>
-                <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">Supported people with various mental impairments in a day care center.</p>
-              </div>
-            </div>
-          </div>
+          <ExperienceItemRTL 
+            role="Civil Service"
+            company="Lebenshilfe Wels"
+            period="2022 – 2023"
+            duration="9 MONTHS"
+            description="Supported people with various mental impairments in a day care center."
+            colorClass="text-slate-500 dark:text-slate-400"
+            dotColorClass="border-slate-500 group-hover:bg-slate-500"
+            isLast={true}
+          />
 
         </div>
       </div>

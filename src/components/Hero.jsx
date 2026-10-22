@@ -135,15 +135,15 @@ const Hero = ({ heroProgress = 0, phase2Progress = 0, phase3Progress = 0 }) => {
     <div className="hero-scroll-container relative" style={{ height: '400vh' }}>
       <section className="hero-sticky sticky top-0 h-screen flex items-center overflow-hidden">
 
-        <div className="max-w-[1400px] mx-auto px-6 w-full relative z-20 flex flex-col items-start justify-center font-display pointer-events-none min-h-[80vh]">
+        <div className="max-w-[1500px] mx-auto px-6 w-full relative z-20 flex flex-col items-start justify-center font-display pointer-events-none min-h-[80vh]">
           <h1
             ref={textRef}
             style={getTextStyle()}
-            className="text-[28vw] sm:text-[25vw] md:text-[22vw] lg:text-[20vw] font-black leading-[1.1] tracking-[-0.04em] text-slate-900 dark:text-white drop-shadow-2xl transition-colors opacity-100 text-left font-['IBM_Plex_Sans'] uppercase z-10"
+            className="text-[28vw] sm:text-[25vw] md:text-[21vw] lg:text-[18.5vw] font-black leading-[1.1] tracking-[-0.04em] text-slate-900 dark:text-white drop-shadow-2xl transition-colors opacity-100 text-left font-['IBM_Plex_Sans'] uppercase z-10"
           >
             <span ref={line1Ref} className="inline-block relative z-10" style={getLineStyle(0)}>
-              {/* First large circle (visual height of capitals, placed further to the RIGHT side of JAKOB) */}
-              <span className="absolute top-1/2 -right-[1.5em] -translate-y-1/2 h-[0.8em] w-[0.8em] rounded-full z-[-1]" style={{ backgroundColor: '#0775B8' }}></span>
+              {/* First large circle (visual height of capitals, shifted left so it stays comfortably on-screen) */}
+              <span className="absolute top-1/2 -right-[1.05em] -translate-y-1/2 h-[0.8em] w-[0.8em] rounded-full z-[-1]" style={{ backgroundColor: '#0775B8' }}></span>
               
               JAKOB
               
@@ -153,12 +153,12 @@ const Hero = ({ heroProgress = 0, phase2Progress = 0, phase3Progress = 0 }) => {
             <br />
             <span ref={line2Ref} className="inline-block relative z-10" style={getLineStyle(1)}>
               <span className="text-gradient">ZÖBL</span>
-              {/* Subtext description - scaled up, bolded, and flies out on scroll */}
+              {/* Subtext description - shifted closer to ZÖBL so it never clips on the right */}
               <span 
-                className="absolute top-full left-0 md:left-full md:top-1/2 mt-[0.5em] md:mt-0 md:ml-[3em] text-[0.08em] lg:text-[0.1em] font-bold text-slate-900 dark:text-white normal-case font-['IBM_Plex_Sans'] tracking-tight whitespace-nowrap -webkit-text-fill-color-initial pointer-events-auto"
+                className="absolute top-full left-0 md:left-full md:top-1/2 mt-[0.5em] md:mt-0 md:ml-[1.2em] lg:ml-[1.5em] text-[0.08em] lg:text-[0.09em] font-bold text-slate-900 dark:text-white normal-case font-['IBM_Plex_Sans'] tracking-tight whitespace-nowrap -webkit-text-fill-color-initial pointer-events-auto"
                 style={getSubtextStyle()}
               >
-                B.Sc. Computer Science Student at TUM
+                M.Sc. Computer Science Student at TUM
               </span>
             </span>
           </h1>

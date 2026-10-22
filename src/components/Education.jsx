@@ -25,7 +25,17 @@ const Education = () => {
           <div className="w-20 h-1 bg-primary mx-auto rounded-full"></div>
         </div>
         
-        <div className="grid lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <EducationCard 
+            delayClass="reveal-delay-1"
+            icon="workspace_premium"
+            bgClass="bg-primary/20"
+            textClass="text-primary"
+            badgeText="Master's Degree"
+            title="TU Munich (TUM)"
+            subtitle="Germany · 2026 – 2028"
+            description="M.Sc. Computer Science. Focus on Generative AI, Machine Learning, and advanced software systems."
+          />
           <EducationCard 
             delayClass="reveal-delay-1"
             icon="flight"
@@ -43,8 +53,8 @@ const Education = () => {
             textClass="text-primary"
             badgeText="Bachelor's Degree"
             title="TU Munich (TUM)"
-            subtitle="Germany · 2023 – 2026 · GPA: 2.1"
-            description="B.Sc. Computer Science. Strong foundations in algorithms, systems, AI, and software engineering."
+            subtitle="Germany · 2023 – 2026 · GPA: 1.9"
+            description="B.Sc. Computer Science. Thesis on graphical perception of MLLMs (Grade: 1.0). Strong foundations in algorithms, systems, and AI."
           />
           <EducationCard 
             delayClass="reveal-delay-3"
